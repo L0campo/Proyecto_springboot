@@ -232,7 +232,24 @@
                 </div>
 
                 <div class="filters-bar" style="margin-top: 2rem;">
-                    <div class="form-group" style="display: flex; gap: 1rem; align-items: flex-end;">
+                    <div class="form-group" style="display: flex; gap: 1rem; align-items: flex-end; flex-wrap: wrap;">
+                        <div>
+                            <label>ID Bodega:</label>
+                            <input type="number" id="filtroBodegaId" class="form-control" placeholder="Ej. 1">
+                        </div>
+                        <div>
+                            <label>ID Producto:</label>
+                            <input type="number" id="filtroProductoId" class="form-control" placeholder="Ej. 5">
+                        </div>
+                        <div>
+                            <label>Tipo:</label>
+                            <select id="filtroTipoMov" class="form-control">
+                                <option value="">Todos</option>
+                                <option value="ENTRADA">ENTRADA</option>
+                                <option value="SALIDA">SALIDA</option>
+                                <option value="AJUSTE">AJUSTE</option>
+                            </select>
+                        </div>
                         <div>
                             <label>Desde:</label>
                             <input type="date" id="filtroMovDesde" class="form-control">
@@ -241,7 +258,7 @@
                             <label>Hasta:</label>
                             <input type="date" id="filtroMovHasta" class="form-control">
                         </div>
-                        <button id="btnFiltrarMovimientos" class="btn-outline">Filtrar</button>
+                        <button id="btnFiltrarMovimientos" class="btn-primary" style="width: auto;">Filtrar Movimientos</button>
                     </div>
                 </div>
 
@@ -289,21 +306,25 @@
                 </div>
 
                 <!-- Tabla de Auditorías -->
-                <div class="filters-bar">
-                    <div class="form-group" style="display: flex; gap: 1rem; align-items: flex-end;">
+                <div class="filters-bar" style="margin-top: 1rem; margin-bottom: 1rem;">
+                    <div class="form-group" style="display: flex; gap: 1rem; align-items: flex-end; flex-wrap: wrap;">
                         <div>
-                            <label>Usuario:</label>
-                            <input type="text" id="filtroAuditoriaUsuario" class="form-control" placeholder="Buscar usuario...">
+                            <label>ID Producto:</label>
+                            <input type="number" id="filtroProductoAuditoria" class="form-control" placeholder="Ej. 15">
                         </div>
                         <div>
-                            <label>Tipo Operación:</label>
-                            <select id="filtroAuditoriaTipo" class="form-control">
-                                <option value="">Todos</option>
-                                <option value="INSERT">INSERT</option>
-                                <option value="UPDATE">UPDATE</option>
-                                <option value="DELETE">DELETE</option>
-                            </select>
+                            <label>Campo Modificado:</label>
+                            <input type="text" id="filtroCampoAuditoria" class="form-control" placeholder="Ej. precio, stock...">
                         </div>
+                        <div>
+                            <label>Desde:</label>
+                            <input type="date" id="filtroAuditoriaDesde" class="form-control">
+                        </div>
+                        <div>
+                            <label>Hasta:</label>
+                            <input type="date" id="filtroAuditoriaHasta" class="form-control">
+                        </div>
+                        <button id="btnFiltrarAuditoria" class="btn-primary" style="width: auto;">Filtrar Auditoría</button>
                     </div>
                 </div>
 

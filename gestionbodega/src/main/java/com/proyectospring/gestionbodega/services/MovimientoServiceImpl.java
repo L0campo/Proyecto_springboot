@@ -10,7 +10,7 @@ import com.proyectospring.gestionbodega.entities.Movimiento;
 import com.proyectospring.gestionbodega.entities.Producto;
 import com.proyectospring.gestionbodega.entities.Usuario;
 import com.proyectospring.gestionbodega.repositories.BodegaRepository;
-import com.proyectospring.gestionbodega.repositories.MovimientoRepository;
+import com.proyectospring.gestionbodega.tesLuisC.MovimientoRepositoryTes;
 import com.proyectospring.gestionbodega.repositories.ProductoRepository;
 import com.proyectospring.gestionbodega.repositories.UsuarioRepository;
 import com.proyectospring.gestionbodega.security.dtos.MovimientoDto;
@@ -22,14 +22,14 @@ import jakarta.transaction.Transactional;
 public class MovimientoServiceImpl implements MovimientoService {
 
     
-    private final MovimientoRepository movimientoRepository;
+    private final MovimientoRepositoryTes movimientoRepository;
     private final ProductoRepository productoRepository;
     private final BodegaRepository bodegaRepository;
     private final UsuarioRepository usuarioRepository;
 
    
 
-    public MovimientoServiceImpl(MovimientoRepository movimientoRepository, ProductoRepository productoRepository,
+    public MovimientoServiceImpl(MovimientoRepositoryTes movimientoRepository, ProductoRepository productoRepository,
           BodegaRepository bodegaRepository, UsuarioRepository usuarioRepository
     ) {
         this.movimientoRepository = movimientoRepository;

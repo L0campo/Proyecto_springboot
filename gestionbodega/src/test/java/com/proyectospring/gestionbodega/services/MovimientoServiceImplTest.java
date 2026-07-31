@@ -20,7 +20,7 @@ import com.proyectospring.gestionbodega.entities.Producto;
 import com.proyectospring.gestionbodega.entities.TipoMovimiento;
 import com.proyectospring.gestionbodega.entities.Usuario;
 import com.proyectospring.gestionbodega.repositories.BodegaRepository;
-import com.proyectospring.gestionbodega.repositories.MovimientoRepository;
+import com.proyectospring.gestionbodega.tesLuisC.MovimientoRepositoryTes;
 import com.proyectospring.gestionbodega.repositories.ProductoRepository;
 import com.proyectospring.gestionbodega.repositories.UsuarioRepository;
 import com.proyectospring.gestionbodega.security.dtos.MovimientoDto;
@@ -29,7 +29,7 @@ import com.proyectospring.gestionbodega.security.dtos.MovimientoDto;
 class MovimientoServiceImplTest {
 
     @Mock
-    private MovimientoRepository movimientoRepository;
+    private MovimientoRepositoryTes movimientoRepository;
 
     @Mock
     private ProductoRepository productoRepository;

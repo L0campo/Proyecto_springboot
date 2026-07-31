@@ -1,7 +1,7 @@
 package com.proyectospring.gestionbodega.controllers;
 
 import com.proyectospring.gestionbodega.entities.Auditoria;
-import com.proyectospring.gestionbodega.repositories.AuditoriaRepository;
+import com.proyectospring.gestionbodega.tesLuisC.AuditoriaRepositoryTes;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,9 +12,9 @@ import java.util.List;
 @RequestMapping("/api/auditoria")
 public class AuditoriaController {
 
-    private final AuditoriaRepository auditoriaRepository;
+    private final AuditoriaRepositoryTes auditoriaRepository;
 
-    public AuditoriaController(AuditoriaRepository auditoriaRepository) {
+    public AuditoriaController(AuditoriaRepositoryTes auditoriaRepository) {
         this.auditoriaRepository = auditoriaRepository;
     }
 

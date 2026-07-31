@@ -7,17 +7,20 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
-// Ajusta las importaciones de tus entidades según tu estructura
-import com.proyectospring.gestionbodega.entities.Movimiento;
+
 import com.proyectospring.gestionbodega.entities.Auditoria;
+import com.proyectospring.gestionbodega.entities.Movimiento;
+
+import com.proyectospring.gestionbodega.tesLuisC.ReporteServiceTes; 
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/api/reportes")
 @RequiredArgsConstructor
 public class ReporteControllerTes {
 
-    // Asegúrate de usar el nombre exacto de tu clase servicio (ReporteServiceTes según tu captura)
-    private final ReporteServiceTes reporteService; 
+    
+    private final ReporteServiceTes reporteService;
 
     @GetMapping("/movimientos")
     public ResponseEntity<List<Movimiento>> obtenerReporteMovimientos(

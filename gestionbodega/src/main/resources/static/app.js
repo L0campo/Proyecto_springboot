@@ -260,8 +260,10 @@ function configurarEventosModulos() {
     });
 
     document.getElementById('filtroStockBajo')?.addEventListener('change', cargarProductos);
-    document.getElementById('btnFiltrarMovimientos')?.addEventListener('click', cargarMovimientosYFormulario);
+    //document.getElementById('btnFiltrarMovimientos')?.addEventListener('click', cargarMovimientosYFormulario);
+    document.getElementById('btnFiltrarMovimientos')?.addEventListener('click', cargarReporteMovimientosFiltrados);
     document.getElementById('btnDescargarReporte')?.addEventListener('click', descargarReporteTxt);
+    document.getElementById('btnFiltrarAuditoria')?.addEventListener('click', aplicarFiltrosAuditoriaBackend);
 }
 
 // =========================================================
@@ -784,4 +786,94 @@ Reporte exportado correctamente desde el módulo de administración.`;
     a.click();
     window.URL.revokeObjectURL(url);
     document.body.removeChild(a);
+}
+
+
+
+
+// =========================================================
+// NUEVA FUNCIÓN: CARGAR REPORTES DE MOVIMIENTOS FILTRADOS
+// =========================================================
+async function cargarReporteMovimientosFiltrados() {
+    const bodegaId = document.getElementById('filtroBodegaId')?.value || '';
+    const productoId = document.getElementById('filtroProductoId')?.value || '';
+    const tipoMov = document.getElementById('filtroTipoMov')?.value || '';
+    const fechaInicio = document.getElementById('filtroMovDesde')?.value || '';
+    const fechaFin = document.getElementById('filtroMovHasta')?.value || '';
+
+    let queryParams = new URLSearchParams();
+
+    if (bodegaId) queryParams.append('bodegaId', bodegaId);
+    if (productoId) queryParams.append('productoId', productoId);
+    if (tipoMov) queryParams.append('tipoMovimiento', tipoMov);
+    if (fechaInicio) queryParams.append('fechaInicio', fechaInicio + 'T00:00:00');
+    if (fechaFin) queryParams.append('fechaFin', fechaFin + 'T23:59:59');
+
+    const tbody = document.getElementById('tablaMovimientosBody');
+    if (tbody) tbody.innerHTML = '<tr><td colspan="6" style="text-align: center;">Cargando reporte...</td></tr>';
+
+    try {
+        const endpoint = `/reportes/movimientos?${queryParams.toString()}`;
+        const movimientos = await fetchAPI(endpoint, 'GET');
+        
+        tbody.innerHTML = '';
+
+        if (!movimientos || movimientos.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="6" style="text-align: center;">No se encontraron movimientos con esos filtros</td></tr>';
+            return;
+        }
+
+        movimientos.forEach(m => {
+            const origenNombre = m.bodegaOrigen ? m.bodegaOrigen.nombre : '-';
+            const destinoNombre = m.bodegaDestino ? m.bodegaDestino.nombre : '-';
+            const productoNombre = m.producto ? m.producto.nombre : 'N/D';
+            const fechaFormateada = m.fechaHora ? new Date(m.fechaHora).toLocaleString() : '-';
+
+            tbody.innerHTML += `
+                <tr>
+                    <td>${fechaFormateada}</td>
+                    <td><span class="badge ${m.tipo ? m.tipo.toLowerCase() : ''}">${m.tipo}</span></td>
+                    <td>${productoNombre}</td>
+                    <td>${origenNombre}</td>
+                    <td>${destinoNombre}</td>
+                    <td>${m.cantidad}</td>
+                </tr>
+            `;
+        });
+    } catch (error) {
+        console.error('Error al cargar reporte de movimientos:', error);
+        alert('Error al filtrar: ' + error.message);
+    }
+}
+
+
+
+// =========================================================
+// NUEVA FUNCIÓN: CARGAR REPORTE DE AUDITORÍA FILTRADO (BACKEND)
+// =========================================================
+async function aplicarFiltrosAuditoriaBackend() {
+    const productoId = document.getElementById('filtroProductoAuditoria')?.value || '';
+    const campoModificado = document.getElementById('filtroCampoAuditoria')?.value || '';
+    const fechaInicio = document.getElementById('filtroAuditoriaDesde')?.value || '';
+    const fechaFin = document.getElementById('filtroAuditoriaHasta')?.value || '';
+
+    let queryParams = new URLSearchParams();
+    
+    if (productoId) queryParams.append('productoId', productoId);
+    if (campoModificado) queryParams.append('campoModificado', campoModificado);
+    if (fechaInicio) queryParams.append('fechaInicio', fechaInicio + 'T00:00:00');
+    if (fechaFin) queryParams.append('fechaFin', fechaFin + 'T23:59:59');
+
+    const tbody = document.getElementById('tablaAuditoriaBody');
+    if (tbody) tbody.innerHTML = '<tr><td colspan="5" style="text-align: center;">Consultando auditoría en base de datos...</td></tr>';
+
+    try {
+        const endpoint = `/reportes/auditoria?${queryParams.toString()}`;
+        const resultadosFiltrados = await fetchAPI(endpoint, 'GET');
+        
+        renderizarTablaAuditoria(resultadosFiltrados);
+    } catch (error) {
+        console.error('Error al filtrar auditoría:', error);
+        alert('Error al filtrar auditoría: ' + error.message);
+    }
 }

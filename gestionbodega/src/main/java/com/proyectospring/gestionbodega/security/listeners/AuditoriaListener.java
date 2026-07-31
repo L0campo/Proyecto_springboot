@@ -4,7 +4,7 @@ import com.proyectospring.gestionbodega.entities.Auditoria;
 import com.proyectospring.gestionbodega.entities.Bodega;
 import com.proyectospring.gestionbodega.entities.Movimiento;
 import com.proyectospring.gestionbodega.entities.Producto;
-import com.proyectospring.gestionbodega.repositories.AuditoriaRepository;
+import com.proyectospring.gestionbodega.tesLuisC.AuditoriaRepositoryTes;
 import jakarta.persistence.PostPersist;
 import jakarta.persistence.PostRemove;
 import jakarta.persistence.PostUpdate;
@@ -21,7 +21,7 @@ public class AuditoriaListener {
     // al inyectar un repositorio de Spring dentro de un EntityListener.
     @Autowired
     @Lazy
-    private AuditoriaRepository auditoriaRepository;
+    private AuditoriaRepositoryTes auditoriaRepository;
 
     @PostPersist
     public void onPostPersist(Object entity) {

@@ -1,7 +1,7 @@
 package com.proyectospring.gestionbodega.services;
 
 import com.proyectospring.gestionbodega.entities.Auditoria;
-import com.proyectospring.gestionbodega.repositories.AuditoriaRepository;
+import com.proyectospring.gestionbodega.tesLuisC.AuditoriaRepositoryTes;
 import org.springframework.stereotype.Service;
 
 import java.nio.charset.StandardCharsets;
@@ -11,9 +11,9 @@ import java.util.List;
 @Service
 public class ReporteService {
 
-    private final AuditoriaRepository auditoriaRepository;
+    private final AuditoriaRepositoryTes auditoriaRepository;
 
-    public ReporteService(AuditoriaRepository auditoriaRepository) {
+    public ReporteService(AuditoriaRepositoryTes auditoriaRepository) {
         this.auditoriaRepository = auditoriaRepository;
     }
 
